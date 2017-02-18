@@ -12,10 +12,21 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+        window?.rootViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: UICollectionViewFlowLayout()))
+       
+        UINavigationBar.appearance().barTintColor = UIColor.red
+        application.statusBarStyle = .lightContent
+        let statusBarBackgroundView = UIView()
+        statusBarBackgroundView.backgroundColor = UIColor(colorLiteralRed: 194/255, green: 32/255, blue: 32/255, alpha: 1)
+        window?.addSubview(statusBarBackgroundView)
+        window?.addConstraintsToView(constraints: "H:|[v0]|", views: statusBarBackgroundView)
+        window?.addConstraintsToView(constraints: "V:|[v0(20)]", views: statusBarBackgroundView)
+        
         return true
     }
 
@@ -40,7 +51,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
 
