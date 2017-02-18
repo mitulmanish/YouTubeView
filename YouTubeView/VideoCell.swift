@@ -8,7 +8,7 @@
 
 import UIKit
 
-class VideoCell: UICollectionViewCell {
+class VideoCell: BaseCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubViews()
@@ -54,7 +54,7 @@ class VideoCell: UICollectionViewCell {
         return description
     }()
     
-    func addSubViews() {
+    override func addSubViews() {
         addSubview(thumbnailImageView)
         addSubview(profileImageView)
         addSubview(seperator)

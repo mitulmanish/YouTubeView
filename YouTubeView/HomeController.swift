@@ -15,10 +15,25 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         navigationController?.navigationBar.isTranslucent = false
         collectionView?.backgroundColor = UIColor.white
         collectionView?.register(VideoCell.self, forCellWithReuseIdentifier: "cellId")
+        collectionView?.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
+        collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(50, 0, 0, 0)
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width - 32, height: view.frame.height))
         label.text = "Home"
         label.textColor = UIColor.white
         navigationItem.titleView = label
+        setUpMenuBar()
+    }
+    
+    let menuBar: MenuBar = {
+        let menuBar = MenuBar()
+        return menuBar
+    }()
+    
+    private func setUpMenuBar() {
+        view.addSubview(menuBar)
+        view.addConstraintsToView(constraints: "H:|[v0]|", views: menuBar)
+        view.addConstraintsToView(constraints: "V:|[v0(50)]", views: menuBar)
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

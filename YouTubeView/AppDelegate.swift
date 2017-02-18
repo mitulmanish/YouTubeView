@@ -19,13 +19,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.rootViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: UICollectionViewFlowLayout()))
        
-        UINavigationBar.appearance().barTintColor = UIColor.red
+        UINavigationBar.appearance().barTintColor = UIColor.rgb(red: 230, green: 32, blue: 31)
+        // remove the shadow underneath the navigation bar
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        
         application.statusBarStyle = .lightContent
-        let statusBarBackgroundView = UIView()
-        statusBarBackgroundView.backgroundColor = UIColor(colorLiteralRed: 194/255, green: 32/255, blue: 32/255, alpha: 1)
-        window?.addSubview(statusBarBackgroundView)
-        window?.addConstraintsToView(constraints: "H:|[v0]|", views: statusBarBackgroundView)
-        window?.addConstraintsToView(constraints: "V:|[v0(20)]", views: statusBarBackgroundView)
+        
         
         return true
     }

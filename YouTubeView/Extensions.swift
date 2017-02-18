@@ -10,7 +10,7 @@ import UIKit
 
 
 extension UIColor {
-    func rgb(red: Float, green: Float, blue: Float) -> UIColor {
+    class func rgb(red: Float, green: Float, blue: Float) -> UIColor {
         return UIColor(colorLiteralRed: red/255, green: green/255, blue: blue/255, alpha: 1.0)
     }
 }
