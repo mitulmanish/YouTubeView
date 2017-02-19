@@ -20,19 +20,16 @@ class MenuBarCell: BaseCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
     }
     
     override var isHighlighted: Bool {
         didSet {
-            print("Selected")
             imageView.tintColor = isHighlighted ? UIColor.white : UIColor.rgb(red: 91, green: 14, blue: 13)
         }
     }
     
     override var isSelected: Bool {
         didSet {
-            print("Selected")
             imageView.tintColor = isSelected ? UIColor.white : UIColor.rgb(red: 91, green: 14, blue: 13)
         }
     }
