@@ -9,7 +9,7 @@
 import UIKit
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    
+	
     var videos: [Video] = {
         
         var channel = Channel()
@@ -70,9 +70,11 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     @objc private func handleSearch() {
         print("Search Button pressed")
     }
-    
+	
+	var settingsView = SettingsManagerView()
     @objc private func moreButtonPressed() {
-        
+		settingsView = SettingsManagerView()
+		settingsView.moreButtonPressed()
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
