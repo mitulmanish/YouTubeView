@@ -7,9 +7,17 @@
 //
 
 import UIKit
+protocol SettingsDelegate {
+	func settingButtonTapped(settingsView: SettingsManagerView, view: SettingsCell)
+}
 
-class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+
+class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout, SettingsDelegate {
 	
+	internal func settingButtonTapped(settingsView: SettingsManagerView, view: SettingsCell) {
+		print(view.label.text!)
+	}
+
     var videos: [Video] = {
         
         var channel = Channel()
@@ -72,8 +80,10 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
 	
 	var settingsView = SettingsManagerView()
+	
     @objc private func moreButtonPressed() {
 		settingsView = SettingsManagerView()
+		settingsView.settingsDelegate = self
 		settingsView.moreButtonPressed()
     }
     
