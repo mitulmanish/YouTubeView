@@ -46,7 +46,7 @@ class SettingsCell: BaseCell {
 }
 
 
-class SettingsManagerView: NSObject, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class SettingsManagerView: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 	
 	var collectionView: UICollectionView!
 	var backgroundView: UIView?
@@ -123,6 +123,14 @@ class SettingsManagerView: NSObject, UICollectionViewDelegate, UICollectionViewD
 				self.collectionView.frame = CGRect(x: 0, y: window.frame.height, width: self.collectionView.frame.width, height: self.collectionView.frame.height)
 			}
 		}
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+		return 0.0
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+		return 0.0
 	}
 	
 }
