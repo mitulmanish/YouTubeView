@@ -79,12 +79,12 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         print("Search Button pressed")
     }
 	
-	var settingsView = SettingsManagerView()
+	var settingsView: SettingsManagerView? = nil
 	
     @objc private func moreButtonPressed() {
 		settingsView = SettingsManagerView()
-		settingsView.settingsDelegate = self
-		settingsView.moreButtonPressed()
+		settingsView?.settingsDelegate = self
+		settingsView?.moreButtonPressed()
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

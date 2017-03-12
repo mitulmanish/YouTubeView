@@ -9,27 +9,39 @@
 import Foundation
 import UIKit
 
+class SettingsContent {
+	let name: String
+	let imageName: String
+	
+	init(name: String, imageName: String) {
+		self.name = name
+		self.imageName = imageName
+	}
+}
 
 class SettingsCell: BaseCell {
 	
-	let label: UILabel = {
+	var cellSetting: SettingsContent? = nil {
+		didSet {
+			label.text = cellSetting?.name
+			iconView.image = UIImage(named: (cellSetting?.imageName)!)?.withRenderingMode(.alwaysOriginal)
+		}
+	}
+	var label: UILabel = {
 		let label = UILabel()
 		label.font = UIFont.systemFont(ofSize: 13)
 		label.translatesAutoresizingMaskIntoConstraints = false
-		label.text = "Try this out"
 		label.textColor = UIColor.lightGray
 		return label
 	}()
 	
 	let iconView: UIImageView = {
-		let imageView = UIImageView()
-		imageView.image = UIImage(named: "settings")
+		var imageView = UIImageView()
+		imageView.tintColor = UIColor.darkGray
 		imageView.contentMode = .scaleAspectFit
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 		return imageView
 	}()
-	
-	
 	
 	override func addSubViews() {
 		super.addSubViews()
@@ -51,7 +63,15 @@ class SettingsManagerView: NSObject, UICollectionViewDataSource, UICollectionVie
 	var collectionView: UICollectionView!
 	var backgroundView: UIView?
 	var settingsDelegate: SettingsDelegate? = nil
+	let cellHeight: CGFloat = 50.0
 	
+	let cellContentCollection: [SettingsContent] = {
+		return [SettingsContent(name: "Settings", imageName: "settings"),
+		        SettingsContent(name: "Terms & Privacy Policy", imageName: "privacy"),
+		        SettingsContent(name: "Send Feedback", imageName: "feedback"),
+		        SettingsContent(name: "Cancel", imageName: "cancel"),
+		        SettingsContent(name: "Help", imageName: "help")]
+	}()
 	override init() {
 		super.init()
 		backgroundView = UIView()
@@ -72,12 +92,13 @@ class SettingsManagerView: NSObject, UICollectionViewDataSource, UICollectionVie
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! SettingsCell
+		cell.cellSetting = cellContentCollection[indexPath.item]
 		return cell
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		return CGSize(width: collectionView.frame.width, height: 50)
+		return CGSize(width: collectionView.frame.width, height: cellHeight)
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -101,9 +122,10 @@ class SettingsManagerView: NSObject, UICollectionViewDataSource, UICollectionVie
 			backgroundView.alpha = 0.0
 			backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
 			window.addSubview(backgroundView)
-			collectionView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: 250)
-			let collectionViewHeight: CGFloat = 200
-			let yPosition: CGFloat = window.frame.height - collectionViewHeight
+			let collectionViewFrameHeight: CGFloat = CGFloat(cellContentCollection.count) * cellHeight
+			collectionView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: collectionViewFrameHeight)
+			let collectionViewHeight: CGFloat = collectionView.frame.height
+			let yPosition: CGFloat = window.frame.height - collectionView.frame.height
 			window.addSubview(collectionView)
 			
 			
