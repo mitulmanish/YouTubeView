@@ -10,20 +10,28 @@ import Foundation
 import UIKit
 
 class SettingsContent {
-	let name: String
+	let name: settingCellType
 	let imageName: String
 	
-	init(name: String, imageName: String) {
+	init(name: settingCellType, imageName: String) {
 		self.name = name
 		self.imageName = imageName
 	}
+}
+
+enum settingCellType: String {
+	case setting = "Settings"
+	case termsAndCondition = "Terms and Condition"
+	case sendFeedback = "Send Feedback"
+	case cancel = "Cancel"
+	case help = "Help"
 }
 
 class SettingsCell: BaseCell {
 	
 	var cellSetting: SettingsContent? = nil {
 		didSet {
-			label.text = cellSetting?.name
+			label.text = cellSetting?.name.rawValue
 			iconView.image = UIImage(named: (cellSetting?.imageName)!)?.withRenderingMode(.alwaysOriginal)
 		}
 	}
@@ -66,12 +74,13 @@ class SettingsManagerView: NSObject, UICollectionViewDataSource, UICollectionVie
 	let cellHeight: CGFloat = 50.0
 	
 	let cellContentCollection: [SettingsContent] = {
-		return [SettingsContent(name: "Settings", imageName: "settings"),
-		        SettingsContent(name: "Terms & Privacy Policy", imageName: "privacy"),
-		        SettingsContent(name: "Send Feedback", imageName: "feedback"),
-		        SettingsContent(name: "Cancel", imageName: "cancel"),
-		        SettingsContent(name: "Help", imageName: "help")]
+		return [SettingsContent(name: .setting, imageName: "settings"),
+		        SettingsContent(name: .termsAndCondition, imageName: "privacy"),
+		        SettingsContent(name: .sendFeedback, imageName: "feedback"),
+		        SettingsContent(name: .cancel,imageName: "cancel"),
+		        SettingsContent(name: .help, imageName: "help")]
 	}()
+	
 	override init() {
 		super.init()
 		backgroundView = UIView()

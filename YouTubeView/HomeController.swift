@@ -11,13 +11,8 @@ protocol SettingsDelegate {
 	func settingButtonTapped(settingsView: SettingsManagerView, view: SettingsCell)
 }
 
-
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout, SettingsDelegate {
 	
-	internal func settingButtonTapped(settingsView: SettingsManagerView, view: SettingsCell) {
-		print(view.label.text!)
-	}
-
     var videos: [Video] = {
         
         var channel = Channel()
@@ -105,5 +100,18 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0.0
     }
+	
+	// MARK: SettingsDelegate
+	internal func settingButtonTapped(settingsView: SettingsManagerView, view: SettingsCell) {
+		if let type = view.cellSetting {
+			let settingViewController = UIViewController()
+			settingViewController.view.backgroundColor = UIColor.white
+			settingViewController.title = type.name.rawValue
+			
+			navigationController?.navigationBar.tintColor = UIColor.white
+			navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+			navigationController?.pushViewController(settingViewController, animated: true)
+		}
+	}
 }
 
